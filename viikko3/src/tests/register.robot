@@ -48,6 +48,30 @@ Register With Username That Is Already In Use
     Click Button  Register
     Register Should Fail With Message  Username is already in use
 
+Login After Successful Registration
+    Set Username  testi
+    Set Password  testi123
+    Set Password Confirmation  testi123
+    Click Button  Register
+    Click Link  Continue to main page
+    Click Button  Logout
+    Set Username  testi
+    Set Password  testi123
+    Click Button  Login
+    Main Page Should Be Open
+
+Login After Failed Registration
+    Set Username  testi
+    Set Password  testi123
+    Set Password Confirmation  testi456
+    Click Button  Register
+    Register Should Fail With Message  Passwords do not match
+    Click Link  Login
+    Set Username  testi
+    Set Password  testi123
+    Click Button  Login
+    Login Should Fail With Message  Invalid username or password
+
 
 *** Keywords ***
 Set Username
@@ -70,4 +94,9 @@ Reset Application Create User And Go To Register Page
 Register Should Fail With Message
     [Arguments]  ${message}
     Register Page Should Be Open
+    Page Should Contain  ${message}
+
+Login Should Fail With Message
+    [Arguments]  ${message}
+    Login Page Should Be Open
     Page Should Contain  ${message}
