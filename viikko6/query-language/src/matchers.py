@@ -14,6 +14,9 @@ class QueryBuilder:
     
     def plays_in(self, team):
         return QueryBuilder(And(self.pino_olio, PlaysIn(team)))
+    
+    def one_of(self, *matchers):
+        return QueryBuilder(Or(*matchers))
 
     def build(self):
         return self.pino_olio
