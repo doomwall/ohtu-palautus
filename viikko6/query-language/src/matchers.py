@@ -1,5 +1,23 @@
 from typing import Any
 
+class QueryBuilder:
+    def __init__(self, pino = None):
+        if pino == None:
+            pino = All()
+        self.pino_olio = pino
+
+    def has_at_least(self, value, attr):
+        return QueryBuilder(And(self.pino_olio, HasAtLeast(value, attr)))
+    
+    def has_fewer_than(self, value, attr):
+        return QueryBuilder(And(self.pino_olio, HasFewerThan(value, attr)))
+    
+    def plays_in(self, team):
+        return QueryBuilder(And(self.pino_olio, PlaysIn(team)))
+
+    def build(self):
+        return self.pino_olio
+
 
 class And:
     def __init__(self, *matchers):
